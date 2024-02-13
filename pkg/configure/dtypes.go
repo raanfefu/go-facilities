@@ -29,6 +29,8 @@ type ConfigurationService interface {
 	UintVar(p *uint, name string, value uint, usage string)
 	GetNames() []string
 	GetValue(name string) *CertificateArgsType
+	GetJsonNames() []string
+	GetJsonValue(name string) *JsonFileArgsType
 }
 
 type CertificateArgsType struct {
@@ -37,4 +39,12 @@ type CertificateArgsType struct {
 	CertificatePath string
 	KeyPath         string
 	Certificate     *tls.Certificate
+	Errors          []string
+}
+
+type JsonFileArgsType struct {
+	Name       string
+	ModuleName string
+	Content    *interface{}
+	Errors     []string
 }

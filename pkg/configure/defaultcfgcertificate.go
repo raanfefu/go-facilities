@@ -7,21 +7,22 @@ import (
 )
 
 func (d *DefaultConfiguraionService) X509KeyPairVar(p *tls.Certificate, name string, usage string) {
+	if d.certificates == nil {
+		d.certificates = make(map[string]*CertificateArgsType)
+	}
 	crt := CertificateArgsType{
 		Certificate: p,
 	}
 	flag.StringVar(&crt.CertificatePath, fmt.Sprintf("%s%s%s%scrt", *d.key, SEPARATOR, name, SEPARATOR), "", usage)
 	flag.StringVar(&crt.KeyPath, fmt.Sprintf("%s%s%s%skey", *d.key, SEPARATOR, name, SEPARATOR), "", usage)
-	if d.Certificates == nil {
-		d.Certificates = make(map[string]*CertificateArgsType)
-	}
-	d.Certificates[name] = &crt
+
+	d.certificates[fmt.Sprintf("%s:%s", *d.key, name)] = &crt
 }
 
 func (d *DefaultConfiguraionService) GetNames() []string {
-	if d.Certificates != nil {
+	if d.certificates != nil {
 		keys := make([]string, 0)
-		for k := range d.Certificates {
+		for k := range d.certificates {
 			keys = append(keys, k)
 		}
 		return keys
@@ -30,8 +31,8 @@ func (d *DefaultConfiguraionService) GetNames() []string {
 }
 
 func (d *DefaultConfiguraionService) GetValue(name string) *CertificateArgsType {
-	if d.Certificates != nil {
-		return d.Certificates[name]
+	if d.certificates != nil {
+		return d.certificates[fmt.Sprintf("%s:%s", *d.key, name)]
 	}
 	return nil
 }

@@ -7,7 +7,8 @@ import (
 
 type DefaultConfiguraionService struct {
 	key          *string
-	Certificates map[string]*CertificateArgsType
+	certificates map[string]*CertificateArgsType
+	jsonFiles    map[string]*JsonFileArgsType
 }
 
 func (d *DefaultConfiguraionService) Key() *string {
@@ -26,4 +27,8 @@ func (d *DefaultConfiguraionService) StringVar(p *string, name string, value str
 
 func (d *DefaultConfiguraionService) UintVar(p *uint, name string, value uint, usage string) {
 	flag.UintVar(p, fmt.Sprintf("%s%s%s", *d.key, SEPARATOR, name), value, usage)
+}
+
+func (d *DefaultConfiguraionService) BoolVar(p *bool, name string, value bool, usage string) {
+	flag.BoolVar(p, fmt.Sprintf("%s%s%s", *d.key, SEPARATOR, name), value, usage)
 }
