@@ -76,7 +76,6 @@ func (s *impl) Start() {
 	s.Server.Shutdown(context.Background())
 }
 
-func (s *impl) AddEndpoint(path string, handler func(http.ResponseWriter, *http.Request), methods []string) {
-	s.Router.HandleFunc(path, handler).Methods(methods...)
-	log.Printf("Adding endpoint: Resoure name: %s Method: %s ... Done ✓", path, methods)
+func (s *impl) GetRouter() *mux.Router {
+	return s.Router
 }

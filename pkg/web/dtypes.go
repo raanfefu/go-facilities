@@ -4,13 +4,22 @@ import (
 	"crypto/tls"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/raanfefu/go-facilities/pkg/common"
+	"github.com/raanfefu/go-facilities/pkg/configure"
 )
 
 type Server interface {
 	Init()
-	AddEndpoint(path string, handler func(http.ResponseWriter, *http.Request), methods []string)
 	Start()
+	GetRouter() *mux.Router
+}
+
+type impl struct {
+	configure.DefaultConfiguraionService
+	Params *ServerParameters
+	Server *http.Server
+	Router *mux.Router
 }
 
 type ServerParameters struct {
@@ -18,4 +27,13 @@ type ServerParameters struct {
 	ModeValue string
 	Port      uint
 	Certs     tls.Certificate
+}
+
+type Handler struct {
+	Func  http.HandlerFunc
+	Route func(r *mux.Route)
+}
+
+func (h *Handler) Registry(s Server) {
+	h.Route(s.GetRouter().NewRoute().HandlerFunc(h.Func))
 }
