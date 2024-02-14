@@ -21,6 +21,8 @@ type Parameters struct {
 
 func NewRedisClient(conf configure.Configuration) RedisClient {
 	obj := &impl{}
-	conf.RegistryService("redis", obj)
+	if conf != nil {
+		conf.RegistryService("redis", obj)
+	}
 	return obj
 }

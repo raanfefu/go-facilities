@@ -46,3 +46,7 @@ func (r *impl) PingResult() (string, error) {
 	status := r.client.Ping(r.Context())
 	return status.String(), status.Err()
 }
+
+func (r *impl) SetParametersConfiguration(parameters Parameters) {
+	r.Parameters = parameters
+}
