@@ -35,5 +35,9 @@ type Handler struct {
 }
 
 func (h *Handler) Registry(s Server) {
-	h.Route(s.GetRouter().NewRoute().HandlerFunc(h.Func))
+	h.AddRoute(*s.GetRouter())
+}
+
+func (h *Handler) AddRoute(r mux.Router) {
+	h.Route(r.NewRoute().HandlerFunc(h.Func))
 }
