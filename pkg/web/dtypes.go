@@ -9,7 +9,7 @@ import (
 
 type Server interface {
 	Init()
-	AddEndpoint(path string, handler func(http.ResponseWriter, *http.Request), methods ...string)
+	AddEndpoint(path string, handler func(http.ResponseWriter, *http.Request), methods []string)
 	Start()
 }
 
