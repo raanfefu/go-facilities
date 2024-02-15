@@ -17,7 +17,7 @@ func (s *impl) PreConfiguration() {
 
 func (s *impl) PostConfiguration() error {
 	if common.StringEmptyOrNil(&s.Parameters.Host) {
-		return errors.New("Hostname es requerido")
+		return errors.New("hostname es requerido")
 	}
 	if s.Parameters.RequiredPass {
 		if common.StringEmptyOrNil(&s.Parameters.Username) {

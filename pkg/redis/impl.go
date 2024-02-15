@@ -33,11 +33,6 @@ func (r *impl) Init() {
 func (r *impl) Status() {
 }
 
-/*
-	func (r *impl) Del(ctx context.Context, keys ...string) error {
-		return nil
-	}
-*/
 func (r *impl) Get(ctx context.Context, key string) (string, error) {
 	return r.client.Get(r.Context(), key).Result()
 }
