@@ -34,7 +34,7 @@ func (s *impl) PreConfiguration() {
 }
 
 func (s *impl) PostConfiguration() error {
-	if s.value != "" {
+	if s.value == "" {
 		return errors.New("vacio")
 	}
 
