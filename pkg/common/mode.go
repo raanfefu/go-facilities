@@ -23,10 +23,10 @@ func ParseMode(s *string) (c *ModeType, err error) {
 		mode := ModeType(*s)
 		_, ok := capabilities[mode]
 		if !ok {
-			return c, fmt.Errorf(`cannot parse:[%s] as mode`, s)
+			return c, fmt.Errorf("cannot parse: %s as mode", *s)
 		}
 		return &mode, nil
 	} else {
-		return nil, fmt.Errorf(`cannot parse:[%s] as mode`, s)
+		return nil, fmt.Errorf("cannot parse: %s  as mode", *s)
 	}
 }

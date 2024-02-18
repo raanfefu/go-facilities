@@ -16,11 +16,7 @@ type Configuration interface {
 }
 
 type ConfigurationService interface {
-	// La implementaciond de este metodo contiene los paramtros que se desean capturar como flags
-	// en la linea de comando asi como referencia de la variables que almacen el valor capturado
 	PreConfiguration()
-	// la implementacion de este metodo permite validar si se cargaron correctamente los valores
-	// capturados durante le analisis de la paramtros recibidos por la linea de comandos como flags.
 	PostConfiguration() error
 
 	Key() *string
